@@ -61,6 +61,14 @@ function findVarsIn(args) {
     const
       stringValues = cur.split(",").map(s => s.trim()).filter(s => s),
       modifiers = stringValues.map(s => {
+        if (!s) {
+          return;
+        }
+        if (s === "~") {
+          return {
+            op: "~"
+          };
+        }
         const
           value = parseFloat(s.replace(/^[+=-]/, "")),
           setOp = s[0] || "=",
@@ -70,7 +78,7 @@ function findVarsIn(args) {
           op,
           value
         };
-      });
+      }).filter(o => o);
     lastVar.modifiers.push.apply(lastVar.modifiers, modifiers);
     return acc;
   }, []);
