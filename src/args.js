@@ -40,13 +40,13 @@ async function isFile(arg) {
 
 function findVarsIn(args) {
   return args.reduce((acc, cur) => {
-    if (cur.indexOf("-") === 0) {
+    if (cur.indexOf("-") === 0 && isNaN(parseFloat(cur))) {
       const trimmed = cur.replace(/^-/, "");
       let thisVar = acc.find(o => o.name === trimmed);
       if (!thisVar) {
         thisVar = {
           name: trimmed,
-          values: []
+          modifiers: []
         };
         acc.push(thisVar);
       }
@@ -59,10 +59,17 @@ function findVarsIn(args) {
     }
     const
       stringValues = cur.split(",").map(s => s.trim()).filter(s => s),
-      numerics = stringValues.map(s =>
-        parseFloat(s.replace(/^\+/, ""), 10)
-      );
-    lastVar.values.push.apply(lastVar.values, numerics);
+      modifiers = stringValues.map(s => {
+        const
+          value = parseFloat(s.replace(/^[+=-]/, "")),
+          setOp = s[0] || "=",
+          op = isNaN(parseInt(setOp, 10)) ? setOp : "=";
+        return {
+          op,
+          value
+        };
+      });
+    lastVar.modifiers.push.apply(lastVar.modifiers, modifiers);
     return acc;
   }, []);
 }
