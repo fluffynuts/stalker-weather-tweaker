@@ -117,6 +117,27 @@ describe("args", () => {
         expect(result.vars[0]).toEqual(expected);
       });
 
+      it(`should not be confused by extra commas`, async() => {
+        // Arrange
+        const
+          args = ["-moo", ",-0.1,", "0.2,", "0.3,", "0.4"],
+          expected = {
+            name: "moo",
+            modifiers: [
+              { op: "-", value: 0.1 },
+              { op: "-", value: 0.2 },
+              { op: "-", value: 0.3 },
+              { op: "-", value: 0.4 }]
+          };
+        // Act
+        const result = await parse(args);
+        // Assert
+        expect(result).toExist();
+        expect(result.vars).toExist();
+        expect(result.vars).toHaveLength(1);
+        expect(result.vars[0]).toEqual(expected);
+      });
+
     });
   });
 
