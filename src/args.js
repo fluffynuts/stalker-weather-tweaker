@@ -39,6 +39,7 @@ async function isFile(arg) {
 }
 
 function findVarsIn(args) {
+  let lastOp = "=";
   return args.reduce((acc, cur) => {
     if (cur.indexOf("-") === 0 && isNaN(parseFloat(cur))) {
       const trimmed = cur.replace(/^-/, "");
@@ -63,7 +64,8 @@ function findVarsIn(args) {
         const
           value = parseFloat(s.replace(/^[+=-]/, "")),
           setOp = s[0] || "=",
-          op = isNaN(parseInt(setOp, 10)) ? setOp : "=";
+          op = isNaN(parseInt(setOp, 10)) ? setOp : lastOp;
+        lastOp = op;
         return {
           op,
           value

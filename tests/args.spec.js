@@ -53,8 +53,8 @@ describe("args", () => {
         expect(result.vars).toHaveLength(1);
         expect(result.vars[0]).toEqual(expected);
       });
+
       it(`should collect all modifiers, using specified ops`, async () => {
-        jest.setTimeout(30000);
         // Arrange
         const
           args = ["-moo", "-0.1", "+0.2,", "+0.3,+0.4"],
@@ -74,6 +74,49 @@ describe("args", () => {
         expect(result.vars).toHaveLength(1);
         expect(result.vars[0]).toEqual(expected);
       });
+
+      it(`should default modifier operations to the last seen if not present`, async() => {
+        // Arrange
+        const
+          args = ["-moo", "-0.1", "+0.2,", "+0.3,0.4"],
+          expected = {
+            name: "moo",
+            modifiers: [
+              { op: "-", value: 0.1 },
+              { op: "+", value: 0.2 },
+              { op: "+", value: 0.3 },
+              { op: "+", value: 0.4 }]
+          };
+        // Act
+        const result = await parse(args);
+        // Assert
+        expect(result).toExist();
+        expect(result.vars).toExist();
+        expect(result.vars).toHaveLength(1);
+        expect(result.vars[0]).toEqual(expected);
+      });
+
+      it(`should default modifier operations to the last seen if not present (2)`, async() => {
+        // Arrange
+        const
+          args = ["-moo", "-0.1", "0.2,", "0.3,0.4"],
+          expected = {
+            name: "moo",
+            modifiers: [
+              { op: "-", value: 0.1 },
+              { op: "-", value: 0.2 },
+              { op: "-", value: 0.3 },
+              { op: "-", value: 0.4 }]
+          };
+        // Act
+        const result = await parse(args);
+        // Assert
+        expect(result).toExist();
+        expect(result.vars).toExist();
+        expect(result.vars).toHaveLength(1);
+        expect(result.vars[0]).toEqual(expected);
+      });
+
     });
   });
 
