@@ -16,6 +16,7 @@
   "devDependencies": {
     "eslint": "^5.9.0",
     "expect-more-jest": "^2.3.0",
+    "faker": "^4.1.0",
     "jest": "^23.6.0",
     "mkdirp": "^0.5.1",
     "nodemon": "^1.18.6",

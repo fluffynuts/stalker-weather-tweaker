@@ -1,3 +1,5 @@
+require("expect-more-jest");
+
 function assert(expr, failMessage) {
   if (!expr) {
     if (typeof failMessage === "function") {
