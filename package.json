@@ -9,7 +9,7 @@
     "autotest": "jest --watch",
     "lint": "eslint --fix src tests",
     "pkg": "pkg",
-    "build-tweak": "pkg --out-path build src/cli/tweak.js",
+    "build-tweak": "pkg --public --out-path build src/cli/tweak.js",
     "tweak": "node src/cli/tweak.js",
     "autolint": "nodemon -x \"eslint src tests\""
   },
