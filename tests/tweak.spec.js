@@ -6,7 +6,7 @@ const
   fs = require("fs"),
   promisify = require("util.promisify"),
   cp = promisify(fs.copyFile),
-  tweak = require("../src/tweak");
+  tweak = require("../src/tweak/tweak");
 
 describe(`tweak`, () => {
   it(`should export the tweak function`, () => {

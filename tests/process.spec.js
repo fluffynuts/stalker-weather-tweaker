@@ -24,10 +24,10 @@ describe(`process`, () => {
           `#include("af3_day_rain.ltx")`,
           ``,
           `[00:00:00]`,
-          `sun                             = moon_full_clear`,
-          `sky_texture                   	= sky\\skygod\\rain\\00-00`,
-          `sky_rotation                    = 0`,
-          `${variable}                       = 0.02, 0.02, 0.02`,
+          `  sun                             = moon_full_clear`,
+          `  sky_texture                   	= sky\\skygod\\rain\\00-00`,
+          `  sky_rotation                    = 0`,
+          `  ${variable}                       = 0.02, 0.02, 0.02`,
         ],
         args = [{
           name: variable,
@@ -47,10 +47,10 @@ describe(`process`, () => {
           `#include("af3_day_rain.ltx")`,
           ``,
           `[00:00:00]`,
-          `sun                             = moon_full_clear`,
-          `sky_texture                   	= sky\\skygod\\rain\\00-00`,
-          `sky_rotation                    = 0`,
-          `${variable}                       = 0.12, 0.02, 0.01`,
+          `  sun                             = moon_full_clear`,
+          `  sky_texture                   	= sky\\skygod\\rain\\00-00`,
+          `  sky_rotation                    = 0`,
+          `  ${variable}                       = 0.12, 0.02, 0.01`,
         ];
       // Act
       const result = process(lines, args);

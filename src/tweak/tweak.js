@@ -1,8 +1,8 @@
-require("./shared/async-arrays");
+require("../shared/async-arrays");
 const
-  parse = require("./tweak/parse"),
-  process = require("./tweak/process"),
-  io = require("./shared/io");
+  parse = require("./parse"),
+  process = require("./process"),
+  io = require("../shared/io");
 async function tweak(args) {
   const parsed = await parse(args);
 

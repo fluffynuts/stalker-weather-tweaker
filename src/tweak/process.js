@@ -15,13 +15,14 @@ function process(
 function findMatch(rules, line) {
   const
     parts = line.split(" "),
-    match = rules.find(rule => parts.indexOf(rule.name) > -1);
+    match = rules.find(rule => parts.map(p => p.trim()).indexOf(rule.name) > -1);
   if (!match) {
     return line;
   }
   let idx = 0;
   return parts.reduce((acc, cur) => {
-    if (!cur || cur === "=" || cur === match.name) {
+
+    if (!cur || cur === "=" || cur.trim() === match.name) {
       acc.push(cur);
       return acc;
     }
