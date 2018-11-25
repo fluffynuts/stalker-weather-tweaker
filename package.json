@@ -1,8 +1,7 @@
 {
-  "name": "weather-tweaker",
-  "version": "1.0.0",
+  "name": "stalker-weather-tweaker",
+  "version": "1.0.1",
   "description": "",
-  "main": "index.js",
   "scripts": {
     "test": "run-s lint jest",
     "jest": "jest",
@@ -12,6 +11,9 @@
     "build-tweak": "pkg --public --out-path build src/cli/tweak.js",
     "tweak": "node src/cli/tweak.js",
     "autolint": "nodemon -x \"eslint src tests\""
+  },
+  "bin": {
+    "stalker-weather-tweaker": "src/cli/tweak.js"
   },
   "keywords": [],
   "author": "Davyd McColl <davydm@gmail.com> (https://github.com/fluffynuts)",
@@ -27,5 +29,8 @@
     "pkg": "^4.3.4",
     "rimraf": "^2.6.2",
     "uuid": "^3.3.2"
+  },
+  "dependencies": {
+    "util.promisify": "^1.0.0"
   }
 }
