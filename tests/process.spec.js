@@ -1,7 +1,7 @@
 require("./matchers");
 const
   faker = require("faker"),
-  process = require("../src/processor").process;
+  process = require("../src/tweak/process");
 
 describe(`process`, () => {
   it(`should export the process function`, () => {

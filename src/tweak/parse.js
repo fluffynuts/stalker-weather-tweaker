@@ -1,4 +1,4 @@
-require("./async-arrays");
+require("../shared/async-arrays");
 const
   promisify = require("util.promisify"),
   fs = require("fs"),
@@ -38,7 +38,7 @@ async function isFile(arg) {
   return st.isFile();
 }
 
-function findVarsIn(args) {
+function findRulesIn(args) {
   let lastOp = "=";
   return args.reduce((acc, cur) => {
     if (cur.indexOf("-") === 0 && isNaN(parseFloat(cur))) {
@@ -88,7 +88,7 @@ async function parse(args) {
   args = args || [];
   return {
     files: await findFilesIn(args),
-    vars: findVarsIn(args)
+    rules: findRulesIn(args)
   };
 }
 

@@ -1,11 +1,11 @@
 require("./matchers");
 const
-  readLines = require("../src/io").readLines,
-  writeFile = require("../src/io").writeLines,
+  readLines = require("../src/shared/io").readLines,
+  writeFile = require("../src/shared/io").writeLines,
   path = require("path"),
   sandbox = require("./sandbox"),
   faker = require("faker");
-describe(`read-lines`, () => {
+describe(`io`, () => {
   it(`should export the readLines function`, () => {
     // Arrange
     // Act

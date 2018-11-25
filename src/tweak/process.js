@@ -36,16 +36,19 @@ function findMatch(rules, line) {
     const places = grokPlaces(cur);
     let result = val;
     switch (modifier.op) {
-    case "~":
-      break;
-    case "+":
-      result += modifier.value;
-      break;
-    case "-":
-      result -= modifier.value;
-      break;
-    default:
-      throw new Error(`Unknown operation: "${modifier.op}"`);
+      case "~":
+        break;
+      case "+":
+        result += modifier.value;
+        break;
+      case "-":
+        result -= modifier.value;
+        break;
+      case "=":
+        result = modifier.value;
+        break;
+      default:
+        throw new Error(`Unknown operation: "${modifier.op}"`);
     }
     let toPush = result.toFixed(places);
     if (addComma) {
@@ -64,6 +67,4 @@ function grokPlaces(str) {
   return parts[1].length;
 }
 
-module.exports = {
-  process
-};
+module.exports = process;
