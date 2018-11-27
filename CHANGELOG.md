@@ -1,3 +1,12 @@
+<a name="1.0.6"></a>
+### 1.0.6 (2018-11-27)
+
+
+#### Bug Fixes
+
+* --version should only show version ([60f917f3](ssh://git@github.com/fluffynuts/stalker-weather-tweaker/commit/60f917f3))
+
+
 <a name="1.0.5"></a>
 ### 1.0.5 (2018-11-27)
 
