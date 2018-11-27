@@ -17,18 +17,23 @@ function remove(needles, haystack) {
 }
 
 async function findFilesIn(args) {
-  const files = [];
+  const
+    files = [],
+    toRemove = [];
   for (let arg of args) {
-    if (await isFile(arg)) {
+    const f = await isFile(arg);
+    if (f) {
       files.push(arg);
     } else {
       const matches = await glob(arg);
-      if (matches.length > 1 || matches[0] !== arg) {
+      if (matches.length > 0) {
         files.push.apply(files, matches);
+        toRemove.push(arg);
       }
     }
   }
   remove(files, args);
+  remove(toRemove, args);
   return files;
 }
 

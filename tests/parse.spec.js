@@ -29,6 +29,7 @@ describe("parse", () => {
       expect(result).toExist();
       expect(result.files).toBeArray();
       expect(result.files).toHaveLength(2);
+      expect(result.rules).toBeEmptyArray();
     });
 
     it(`should handle globs`, async () => {
