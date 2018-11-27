@@ -1,7 +1,10 @@
 #!/usr/bin/env node
-function showHelp() {
+async function showHelp() {
+  const
+    findVersion = require("./find-version"),
+    version = await findVersion();
   [
-    "S.T.A.L.K.E.R weather variable tweaker",
+    `S.T.A.L.K.E.R weather variable tweaker ${version}`,
     "  Usage:",
     "  tweak [file] {..file} {options}",
     "    where options are of the form:",
@@ -48,7 +51,7 @@ function showHelp() {
   if (args.length === 0 ||
     args.indexOf("-h") > -1 ||
     args.indexOf("--help") > -1) {
-    return showHelp();
+    return await showHelp();
   }
 
   if (args.indexOf("--version") > -1) {
