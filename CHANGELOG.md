@@ -1,3 +1,12 @@
+<a name="1.0.8"></a>
+### 1.0.8 (2018-11-27)
+
+
+#### Bug Fixes
+
+* file globs should be removed from args before parsing for rules ([5b97f55e](ssh://git@github.com/fluffynuts/stalker-weather-tweaker/commit/5b97f55e))
+
+
 <a name="1.0.7"></a>
 ### 1.0.7 (2018-11-27)
 
