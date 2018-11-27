@@ -1,3 +1,12 @@
+<a name="1.0.7"></a>
+### 1.0.7 (2018-11-27)
+
+
+#### Bug Fixes
+
+* should recognise start of args when running as *nix symmed executable ([ade05d7f](ssh://git@github.com/fluffynuts/stalker-weather-tweaker/commit/ade05d7f))
+
+
 <a name="1.0.6"></a>
 ### 1.0.6 (2018-11-27)
 
