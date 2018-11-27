@@ -6,7 +6,7 @@ const parse = require("../src/tweak/parse"),
   cp = promisify(fs.copyFile);
 require("expect-more-jest");
 
-describe("args", () => {
+describe("parse", () => {
   it("should export the parse function", () => {
     // Arrange
     // Act
@@ -31,7 +31,32 @@ describe("args", () => {
       expect(result.files).toHaveLength(2);
     });
 
-    describe(`vars`, () => {
+    it(`should handle globs`, async () => {
+      // Arrange
+      const
+        box = await sandbox.create(),
+        src = testFile("1.ltx"),
+        file1 = path.join(box, "1.ltx"),
+        file2 = path.join(box, "2.ltx"),
+        file3 = path.join(box, "3.ltx"),
+        expected = [
+          file1, file2, file3
+        ],
+        args = path.join(box, "*.ltx");
+      await Promise.all([
+        cp(src, file1),
+        cp(src, file2),
+        cp(src, file3)
+      ]);
+      // Act
+      const result = await parse(args);
+      // Assert
+      expect(result).toExist();
+      expect(result.files).toBeArray();
+      expect(result.files).toEqual(expected);
+    });
+
+    describe(`modifiers`, () => {
       it(`should collect all modifiers, default to =`, async () => {
         jest.setTimeout(30000);
         // Arrange
@@ -40,10 +65,10 @@ describe("args", () => {
           expected = {
             name: "moo",
             modifiers: [
-              { op: "=", value: 0.1 },
-              { op: "=", value: 0.2 },
-              { op: "=", value: 0.3 },
-              { op: "=", value: 0.4 }]
+              {op: "=", value: 0.1},
+              {op: "=", value: 0.2},
+              {op: "=", value: 0.3},
+              {op: "=", value: 0.4}]
           };
         // Act
         const result = await parse(args);
@@ -61,10 +86,10 @@ describe("args", () => {
           expected = {
             name: "moo",
             modifiers: [
-              { op: "-", value: 0.1 },
-              { op: "+", value: 0.2 },
-              { op: "+", value: 0.3 },
-              { op: "+", value: 0.4 }]
+              {op: "-", value: 0.1},
+              {op: "+", value: 0.2},
+              {op: "+", value: 0.3},
+              {op: "+", value: 0.4}]
           };
         // Act
         const result = await parse(args);
@@ -75,17 +100,17 @@ describe("args", () => {
         expect(result.rules[0]).toEqual(expected);
       });
 
-      it(`should default modifier operations to the last seen if not present`, async() => {
+      it(`should default modifier operations to the last seen if not present`, async () => {
         // Arrange
         const
           args = ["-moo", "-0.1", "+0.2,", "+0.3,0.4"],
           expected = {
             name: "moo",
             modifiers: [
-              { op: "-", value: 0.1 },
-              { op: "+", value: 0.2 },
-              { op: "+", value: 0.3 },
-              { op: "+", value: 0.4 }]
+              {op: "-", value: 0.1},
+              {op: "+", value: 0.2},
+              {op: "+", value: 0.3},
+              {op: "+", value: 0.4}]
           };
         // Act
         const result = await parse(args);
@@ -96,17 +121,17 @@ describe("args", () => {
         expect(result.rules[0]).toEqual(expected);
       });
 
-      it(`should default modifier operations to the last seen if not present (2)`, async() => {
+      it(`should default modifier operations to the last seen if not present (2)`, async () => {
         // Arrange
         const
           args = ["-moo", "-0.1", "0.2,", "0.3,0.4"],
           expected = {
             name: "moo",
             modifiers: [
-              { op: "-", value: 0.1 },
-              { op: "-", value: 0.2 },
-              { op: "-", value: 0.3 },
-              { op: "-", value: 0.4 }]
+              {op: "-", value: 0.1},
+              {op: "-", value: 0.2},
+              {op: "-", value: 0.3},
+              {op: "-", value: 0.4}]
           };
         // Act
         const result = await parse(args);
@@ -117,17 +142,17 @@ describe("args", () => {
         expect(result.rules[0]).toEqual(expected);
       });
 
-      it(`should not be confused by extra commas`, async() => {
+      it(`should not be confused by extra commas`, async () => {
         // Arrange
         const
           args = ["-moo", ",-0.1,", "0.2,", "0.3,", "0.4"],
           expected = {
             name: "moo",
             modifiers: [
-              { op: "-", value: 0.1 },
-              { op: "-", value: 0.2 },
-              { op: "-", value: 0.3 },
-              { op: "-", value: 0.4 }]
+              {op: "-", value: 0.1},
+              {op: "-", value: 0.2},
+              {op: "-", value: 0.3},
+              {op: "-", value: 0.4}]
           };
         // Act
         const result = await parse(args);
@@ -145,10 +170,10 @@ describe("args", () => {
           expected = {
             name: "moo",
             modifiers: [
-              { op: "-", value: 0.1 },
-              { op: "~" },
-              { op: "-", value: 0.3 },
-              { op: "-", value: 0.4 }]
+              {op: "-", value: 0.1},
+              {op: "~"},
+              {op: "-", value: 0.3},
+              {op: "-", value: 0.4}]
           };
         // Act
         const result = await parse(args);

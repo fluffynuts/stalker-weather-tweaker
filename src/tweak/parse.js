@@ -1,6 +1,7 @@
 require("../shared/async-arrays");
 const
   promisify = require("util.promisify"),
+  glob = require("globby"),
   fs = require("fs"),
   exists = promisify(fs.exists),
   stat = promisify(fs.stat);
@@ -23,6 +24,11 @@ async function findFilesIn(args) {
   for (let arg of args) {
     if (await isFile(arg)) {
       files.push(arg);
+    } else {
+      const matches = await glob(arg);
+      if (matches.length > 1 || matches[0] !== arg) {
+        files.push.apply(files, matches);
+      }
     }
   }
   remove(files, args);
@@ -86,6 +92,9 @@ function findRulesIn(args) {
 
 async function parse(args) {
   args = args || [];
+  if (!Array.isArray(args)) {
+    args = [ args ];
+  }
   return {
     files: await findFilesIn(args),
     rules: findRulesIn(args)
