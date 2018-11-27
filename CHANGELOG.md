@@ -1,3 +1,12 @@
+<a name="1.0.5"></a>
+### 1.0.5 (2018-11-27)
+
+
+#### Features
+
+* tool shows version in help too ([166498bb](ssh://git@github.com/fluffynuts/stalker-weather-tweaker/commit/166498bb))
+
+
 <a name="1.0.4"></a>
 ### 1.0.4 (2018-11-27)
 
