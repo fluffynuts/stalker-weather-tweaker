@@ -1,10 +1,7 @@
 require("../shared/async-arrays");
 const
-  promisify = require("util.promisify"),
   glob = require("globby"),
-  fs = require("fs"),
-  exists = promisify(fs.exists),
-  stat = promisify(fs.stat);
+  isFile = require("../shared/is-file");
 
 function remove(needles, haystack) {
   needles.forEach(f => {
@@ -33,15 +30,6 @@ async function findFilesIn(args) {
   }
   remove(files, args);
   return files;
-}
-
-async function isFile(arg) {
-  const pathExists = await exists(arg);
-  if (!pathExists) {
-    return false;
-  }
-  const st = await stat(arg);
-  return st.isFile();
 }
 
 function findRulesIn(args) {

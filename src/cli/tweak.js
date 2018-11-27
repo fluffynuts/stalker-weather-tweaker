@@ -51,6 +51,13 @@ function showHelp() {
     return showHelp();
   }
 
+  if (args.indexOf("--version") > -1) {
+    const
+      findVersion = require("./find-version"),
+      version = await findVersion();
+    console.log(`stalker-weather-tweaker: ${version}`);
+  }
+
   await tweak(args);
 })();
 
