@@ -15,7 +15,7 @@
     "build-tweak": "pkg --public --out-path build src/cli/tweak.js",
     "tweak": "node src/cli/tweak.js",
     "autolint": "nodemon -x \"eslint src tests\"",
-    "release": "unleash -p"
+    "release": "unleash -p --no-publish"
   },
   "bin": {
     "stalker-weather-tweaker": "src/cli/tweak.js"
