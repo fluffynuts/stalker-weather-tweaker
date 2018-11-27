@@ -30,6 +30,13 @@ async function showHelp() {
     "    use ~ to 'skip over' a parameter you don't want to change"
   ].forEach(line => console.log(line));
 }
+
+async function showVersion() {
+  const
+    findVersion = require("./find-version"),
+    version = await findVersion();
+  console.log(`stalker-weather-tweaker: ${version}`);
+}
 (async function () {
   const
     path = require("path"),
@@ -55,10 +62,7 @@ async function showHelp() {
   }
 
   if (args.indexOf("--version") > -1) {
-    const
-      findVersion = require("./find-version"),
-      version = await findVersion();
-    console.log(`stalker-weather-tweaker: ${version}`);
+    return await showVersion();
   }
 
   await tweak(args);
