@@ -1,4 +1,5 @@
 #!/usr/bin/env node
+const utilName = "stalker-weather-tweaker";
 async function showHelp() {
   const
     findVersion = require("./find-version"),
@@ -6,7 +7,7 @@ async function showHelp() {
   [
     `S.T.A.L.K.E.R weather variable tweaker ${version}`,
     "  Usage:",
-    "  tweak [file] {..file} {options}",
+    `  ${utilName} [file] {..file} {options}`,
     "    where options are of the form:",
     "    -variable (+|-|=|~)value",
     "",
@@ -35,7 +36,7 @@ async function showVersion() {
   const
     findVersion = require("./find-version"),
     version = await findVersion();
-  console.log(`stalker-weather-tweaker: ${version}`);
+  console.log(`${utilName}: ${version}`);
 }
 (async function () {
   const
@@ -49,7 +50,7 @@ async function showVersion() {
         return acc;
       }
       const parts = cur.split(path.sep);
-      if (parts[parts.length - 1] === "tweak.js") {
+      if (parts[parts.length - 1] === "tweak.js" || parts[parts.length - 1] === utilName) {
         inArgs = true;
       }
       return acc;
