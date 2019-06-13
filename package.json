@@ -12,10 +12,12 @@
     "autotest": "jest --watch",
     "lint": "eslint --fix src tests",
     "pkg": "pkg",
-    "build-tweak": "pkg --public --out-path build src/cli/tweak.js",
+    "build": "pkg --public --out-path build src/cli/tweak.js",
     "tweak": "node src/cli/tweak.js",
     "autolint": "nodemon -x \"eslint src tests\"",
-    "release": "npm version patch"
+    "release": "run-s test build increment-version publish",
+    "publish": "npm publish",
+    "increment-version": "npm version patch"
   },
   "bin": {
     "stalker-weather-tweaker": "src/cli/tweak.js"
