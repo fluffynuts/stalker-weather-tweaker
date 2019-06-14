@@ -3,24 +3,26 @@ const uuid = require("uuid/v4"),
   path = require("path"),
   mkdir = promisify(require("mkdirp")),
   rimraf = promisify(require("rimraf")),
-  prefix = "__sandboxes__";
+  basePrefix = "__sandboxes__";
 
-async function destroyAll() {
-  await rimraf(path.join(__dirname, prefix));
+class Sandbox {
+  constructor(localPrefix) {
+    this._localPrefix = localPrefix.replace(/\./g, "_");
+  }
+  async destroyAll() {
+    await rimraf(path.join(__dirname, basePrefix, this._localPrefix));
+  }
+
+  async destroy(dir) {
+    await rimraf(dir);
+  }
+
+  async create() {
+    const result = path.join(__dirname, basePrefix, this._localPrefix, uuid());
+    await mkdir(result);
+    return result;
+  }
+
 }
 
-async function destroy(dir) {
-  await rimraf(dir);
-}
-
-async function create() {
-  const result = path.join(__dirname, prefix, uuid());
-  await mkdir(result);
-  return result;
-}
-
-module.exports = {
-  create,
-  destroy,
-  destroyAll
-};
+module.exports = Sandbox;

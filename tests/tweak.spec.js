@@ -1,7 +1,8 @@
 require("expect-more-jest");
 const
   path = require("path"),
-  sandbox = require("./sandbox"),
+  Sandbox = require("./sandbox"),
+  sandbox = new Sandbox(path.basename(__filename)),
   io = require("../src/shared/io"),
   fs = require("fs"),
   promisify = require("util.promisify"),
@@ -70,4 +71,7 @@ describe(`tweak`, () => {
     expect(console.warn).not.toHaveBeenCalled();
   });
 
+  afterEach(async () => {
+    await sandbox.destroyAll();
+  });
 });

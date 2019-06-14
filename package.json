@@ -8,7 +8,7 @@
   },
   "scripts": {
     "test": "run-s lint jest",
-    "jest": "jest",
+    "jest": "jest --no-cache",
     "autotest": "jest --watch",
     "lint": "eslint --fix src tests",
     "pkg": "pkg",

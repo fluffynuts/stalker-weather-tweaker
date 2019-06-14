@@ -1,5 +1,8 @@
 require("../shared/async-arrays");
 const
+  os = require("os"),
+  platform = os.platform(),
+  isWindows = platform === "win32",
   glob = require("globby"),
   isFile = require("../shared/is-file");
 
@@ -27,7 +30,11 @@ async function findFilesIn(args) {
     } else {
       const matches = await glob(arg);
       if (matches.length > 0) {
-        files.push.apply(files, matches);
+        files.push.apply(files,
+          matches
+            .map(m => isWindows ? m.replace(/\//g, "\\") : m)
+            .sort()
+        );
         toRemove.push(arg);
       }
     }

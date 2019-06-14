@@ -1,7 +1,8 @@
 const parse = require("../src/tweak/parse"),
-  sandbox = require("./sandbox"),
-  promisify = require("util.promisify"),
   path = require("path"),
+  Sandbox = require("./sandbox"),
+  sandbox = new Sandbox(path.basename(__filename)),
+  promisify = require("util.promisify"),
   fs = require("fs"),
   cp = promisify(fs.copyFile);
 require("expect-more-jest");
@@ -193,6 +194,6 @@ describe("parse", () => {
   }
 
   afterEach(async () => {
-    sandbox.destroyAll();
+    await sandbox.destroyAll();
   });
 });

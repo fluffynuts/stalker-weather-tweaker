@@ -3,7 +3,8 @@ const
   readLines = require("../src/shared/io").readLines,
   writeFile = require("../src/shared/io").writeLines,
   path = require("path"),
-  sandbox = require("./sandbox"),
+  Sandbox = require("./sandbox"),
+  sandbox = new Sandbox(path.basename(__filename)),
   faker = require("faker");
 describe(`io`, () => {
   it(`should export the readLines function`, () => {
@@ -43,5 +44,9 @@ describe(`io`, () => {
       // Assert
       expect(result).toEqual([ data ]);
     });
+  });
+
+  afterEach(async () => {
+    await sandbox.destroyAll();
   });
 });
